@@ -65,7 +65,7 @@ const LoginView = () => {
   
   return (
     <div className="lg:grid lg:grid-cols-2 w-full h-full bg-background">
-      <aside className="relative hidden lg:flex lg:flex-col w-full h-full p-12 gap-4 justify-between">
+      <aside className="relative hidden lg:flex lg:flex-col bg-sidebar w-full h-full p-12 gap-4 justify-between">
         <div className="flex gap-4 items-center">
           <IconBlock
             icon="LuServer"
@@ -100,7 +100,7 @@ const LoginView = () => {
         />
       </aside>
 
-      <div className="relative grid w-full h-full p-4 bg-sidebar border place-items-center">
+      <div className="relative grid w-full h-full p-4 border place-items-center">
         <ThemeSwitcher className="absolute top-12 right-12"/>
         
         <div className="flex flex-col w-full max-w-md gap-2">

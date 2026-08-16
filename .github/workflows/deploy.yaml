@@ -1,0 +1,25 @@
+name: Deploy to Ubuntu Server
+
+# Akan berjalan otomatis setiap ada push ke branch 'main'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    # Menggunakan runner yang baru saja kita instal di server lokal Anda
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull Latest Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Next.js App
+        run: npm run build
+
+      - name: Restart PM2 Service
+        run: pm2 restart server-dashboard

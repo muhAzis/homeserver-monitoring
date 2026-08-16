@@ -36,7 +36,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const collapsed = state === "collapsed";
   const pathname = usePathname();
   const router = useRouter();
-  
+
   const isActive = (to: string) => (to === "/" ? pathname === "/" : pathname.startsWith(to));
   
   const menu: T_Menu[] = [

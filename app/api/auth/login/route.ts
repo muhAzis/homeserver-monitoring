@@ -3,6 +3,8 @@ import { Client } from "ssh2";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+export const runtime = 'nodejs';
+
 const SECRET_KEY = new TextEncoder().encode(process.env.AUTH_SECRET_KEY!);
 
 const verifySSH = (username: string, password: string, host: string): Promise<boolean> => {

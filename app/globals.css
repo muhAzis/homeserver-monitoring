@@ -126,7 +126,7 @@
   
   --radius: 0.625rem;
   
-  --background: oklch(1 0 0);
+  --background: oklch(0.975 0.003 62);
   --foreground: oklch(0.26 0.012 62);
   
   --card: oklch(1 0 0);
