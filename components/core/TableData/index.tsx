@@ -169,7 +169,7 @@ const TableData: React.FC<T_TableData> = ({
             </div>
           : null}
         </Table>
-      : <div className="w-full h-[500px] bg-dark-50 rounded-xl animate-pulse" />}
+      : <div className="w-full h-125 bg-dark-50 rounded-xl animate-pulse" />}
 
       {(pagination && setPagination)
       ? <div className="flex pt-2 border-t items-center justify-between">

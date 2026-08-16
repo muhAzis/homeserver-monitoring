@@ -41,12 +41,14 @@ const buttonVariants = cva(
   }
 )
 
+export type T_Button = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>
+
 function Button({
   className,
   variant = "default",
   size = "default",
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: T_Button) {
   return (
     <ButtonPrimitive
       data-slot="button"
