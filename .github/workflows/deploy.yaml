@@ -12,6 +12,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Change Directory to Project
+        run: cd ~/node-projects/homeserver-monitoring
+
       - name: Pull Latest Code
         uses: actions/checkout@v4
 
