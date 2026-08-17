@@ -11,7 +11,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ~/node-projects/homeserver-monitoring
+        working-directory: /home/muhazis/node-projects/homeserver-monitoring
 
     steps:
       - name: Pull Latest Code
