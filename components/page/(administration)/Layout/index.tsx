@@ -1,4 +1,3 @@
-import dayjs from '@/lib/dayjs';
 import Container from './Container';
 
 type T_AdminLayout = {
@@ -7,11 +6,9 @@ type T_AdminLayout = {
 
 export const dynamic = 'force-dynamic';
 
-const AdminLayout = ({ children }: T_AdminLayout) => {  
-  const serverTimeMs = dayjs().valueOf();
-  
+const AdminLayout = ({ children }: T_AdminLayout) => {
   return (
-    <Container initialServerTime={serverTimeMs}>
+    <Container>
       {children}
     </Container>
   )
