@@ -9,12 +9,11 @@ type T_AdminInset = {
   children: React.ReactNode;
   menu: T_Menu[];
   isActive: (to: string) => boolean;
-  initialServerTime: number;
   handleLogout: () => Promise<void>;
   isLoading: boolean;
 }
 
-const AdminInset = ({ children, menu, initialServerTime, isActive, handleLogout, isLoading }: T_AdminInset) => {
+const AdminInset = ({ children, menu, isActive, handleLogout, isLoading }: T_AdminInset) => {
   return (
     <SidebarInset className="min-w-0 flex-1 bg-background">
       <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur">
@@ -30,7 +29,7 @@ const AdminInset = ({ children, menu, initialServerTime, isActive, handleLogout,
             {/* <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest hidden sm:inline">
               {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
             </span> */}
-            <LiveClock initialServerTime={initialServerTime} />
+            <LiveClock />
             <span className="hidden items-center gap-2 rounded-full border border-border px-3 py-1 sm:flex">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">online</span>

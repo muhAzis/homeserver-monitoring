@@ -17,10 +17,9 @@ export type T_Menu = {
 
 type T_Container = {
   children: React.ReactNode;
-  initialServerTime: number;
 }
 
-const Container = ({ children, initialServerTime }: T_Container) => {
+const Container = ({ children }: T_Container) => {
   const pathname = usePathname();
   const router = useRouter();
   
@@ -65,7 +64,6 @@ const Container = ({ children, initialServerTime }: T_Container) => {
         isLoading={logout.isPending}
       />
       <AdminInset
-        initialServerTime={initialServerTime}
         menu={menu}
         isActive={isActive}
         handleLogout={handleLogout}
