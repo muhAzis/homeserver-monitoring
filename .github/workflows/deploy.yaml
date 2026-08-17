@@ -14,8 +14,14 @@ jobs:
         working-directory: /home/muhazis/node-projects/homeserver-monitoring
 
     steps:
+      # - name: Pull Latest Code
+      #   uses: actions/checkout@v4
       - name: Pull Latest Code
-        uses: actions/checkout@v4
+        run: |
+          pwd 
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd
 
       - name: Install Dependencies
         run: npm install
