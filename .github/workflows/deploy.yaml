@@ -1,6 +1,5 @@
 name: Deploy to Ubuntu Server
 
-# Akan berjalan otomatis setiap ada push ke branch 'main'
 on:
   push:
     branches:
@@ -8,21 +7,44 @@ on:
 
 jobs:
   deploy:
-    # Menggunakan runner yang baru saja kita instal di server lokal Anda
     runs-on: self-hosted
 
-    steps:
-      - name: Change Directory to Project
-        run: cd ~/node-projects/homeserver-monitoring
+    defaults:
+      run:
+        working-directory: ~/node-projects/homeserver-monitoring
 
+    steps:
       - name: Pull Latest Code
         uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: npm install
 
+      - name: Set Dynamic App Version
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          MAJOR_MINOR=$(echo $PKG_VERSION | cut -d. -f1,2)
+          echo "NEXT_PUBLIC_APP_VERSION=$MAJOR_MINOR.${{ github.run_number }}" >> $GITHUB_ENV
+
       - name: Build Next.js App
         run: npm run build
 
       - name: Restart PM2 Service
         run: pm2 restart server-dashboard
+
+      # - name: Update, Build, and Restart App
+      #   run: |
+      #     cd ~/node-projects/homeserver-monitoring
+
+      #     git fetch origin main
+      #     git reset --hard origin/main
+
+      #     npm install
+
+      #     PKG_VERSION=$(node -p "require('./package.json').version")
+      #     MAJOR_MINOR=$(echo $PKG_VERSION | cut -d. -f1,2)
+      #     export NEXT_PUBLIC_APP_VERSION="$MAJOR_MINOR.${{ github.run_number }}"
+
+      #     npm run build
+
+      #     pm2 restart server-dashboard

@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
+import packageInfo from "@/package.json";
+import os from "os";
+import dayjs from "@/lib/dayjs";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -31,6 +34,15 @@ const LoginView = () => {
   const router = useRouter();
   const [isShowPass, setIsShowPass] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  const serverUptimeSeconds = os.uptime();
+  const uptimeObj = dayjs.duration(serverUptimeSeconds, "seconds");
+  const days = Math.floor(uptimeObj.asDays());
+  const hours = uptimeObj.hours().toString().padStart(2, "0"); 
+  const displayUptime = `${days}D ${hours}H`;
+
+  const hostname = os.hostname();
+  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || packageInfo.version;
 
   useEffect(() => {
     setIsMounted(true);
@@ -72,7 +84,7 @@ const LoginView = () => {
             variant="twilight"
           />
           <div>
-            <p className="font-bold">Home Server Monitor</p>
+            <p className="font-bold capitalize">{hostname.replaceAll("-", " ").replaceAll(".", " - ")}</p>
             <p className="text-xs text-muted-foreground font-mono">RX 78 • LOCAL INSTANCE</p>
           </div>
         </div>
@@ -91,7 +103,7 @@ const LoginView = () => {
         </div>
 
         <p className="text-xs font-mono text-muted-foreground tracking-widest">
-          AGENT V1.4.2 • UPTIME 12D 04H
+          AGENT V{appVersion} • UPTIME {displayUptime}
         </p>
         
         <div
