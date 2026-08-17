@@ -1,40 +1,17 @@
-"use client";
-
-import Form from "@/components/core/Form";
 import Icon, { T_IconList } from "@/components/core/Icon";
 import IconBlock from "@/components/core/IconBlock";
 import ThemeSwitcher from "@/components/core/ThemeSwitcher";
-import { Button } from "@/components/ui/button";
-import apiClient from "@/lib/axios";
-import { cn } from "@/lib/utils";
-import { useMutation } from "@tanstack/react-query";
-import { useTheme } from "next-themes";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import z from "zod";
 import packageInfo from "@/package.json";
 import os from "os";
 import dayjs from "@/lib/dayjs";
-
-const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-});
+import LoginForm from "./LoginForm";
 
 type T_Features = {
   icon: T_IconList;
   label: string;
 }
 
-type T_LoginSchema = z.infer<typeof loginSchema>;
-
 const LoginView = () => {
-  const { theme, setTheme } = useTheme();
-  const router = useRouter();
-  const [isShowPass, setIsShowPass] = useState<boolean>(false);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-
   const serverUptimeSeconds = os.uptime();
   const uptimeObj = dayjs.duration(serverUptimeSeconds, "seconds");
   const days = Math.floor(uptimeObj.asDays());
@@ -43,37 +20,12 @@ const LoginView = () => {
 
   const hostname = os.hostname();
   const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || packageInfo.version;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
   
   const features: T_Features[] = [
     { icon: "LuCpu", label: "resources" },
     { icon: "LuActivity", label: "live apps" },
     { icon: "LuShieldCheck", label: "alerts" },
   ]
-
-  const login = useMutation({
-    mutationKey: ["login"],
-    mutationFn: async (loginData: T_LoginSchema) => {
-      const response = await apiClient.post("/auth/login", loginData);
-      const data = response.data;
-
-      return data;
-    },
-    onSuccess: () => {
-      toast.success("Login successful");
-      router.push("/dashboard");
-    },
-    onError: (err) => {
-      toast.error(`Login failed: ${err.message}`);
-    }
-  });
-  
-  const handleLogin = async (data: T_LoginSchema) => {
-    await login.mutateAsync(data);
-  }
   
   return (
     <div className="lg:grid lg:grid-cols-2 w-full h-full bg-background">
@@ -103,7 +55,7 @@ const LoginView = () => {
         </div>
 
         <p className="text-xs font-mono text-muted-foreground tracking-widest">
-          AGENT V{appVersion} • UPTIME {displayUptime}
+          AGENT V{appVersion} • UPTIME {displayUptime} • © MUHAMAD ABDUL AZIS
         </p>
         
         <div
@@ -120,32 +72,7 @@ const LoginView = () => {
           <p className="text-3xl font-bold">Welcome Back</p>
           <p className="text-muted-foreground">Sign in to open your server dashboard.</p>
 
-          <Form
-            schema={loginSchema}
-            onSubmit={handleLogin}
-            fields={[
-              { name: "username", label: "Username", type: "text", placeholder: "your_user_name" },
-              {
-                name: "password",
-                label: "Password",
-                type: isShowPass ? "text" : "password",
-                placeholder: isShowPass ? "Your password" : "••••••••",
-                icon: isShowPass ? "LuEyeOff" : "LuEye",
-                iconOnClick: () => setIsShowPass((prev) => !prev)
-              },
-            ]}
-            defaultValues={{
-              username: "",
-              password: "",
-            }}
-            className="mt-4"
-            customSubmitButton={() => (
-              <Button type="submit" className="mt-4 py-6!" disabled={login.isPending}>
-                <Icon icon={login.isPending ? "LuLoaderCircle" : "LuLock"} className={cn(login.isPending ? "animate-spin" : "")}/>
-                {login.isPending ? "Signing In..." : "Sign In"}
-              </Button>
-            )}
-          />
+          <LoginForm/>
         </div>
       </div>
     </div>
