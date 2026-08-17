@@ -2,6 +2,7 @@
 
 import Icon, { T_IconList } from '@/components/core/Icon';
 import IconBlock from '@/components/core/IconBlock';
+import LiveClock from '@/components/core/LiveClock';
 import ThemeSwitcher from '@/components/core/ThemeSwitcher';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,24 +29,30 @@ import { toast } from 'sonner';
 type T_Menu = {
   href: string;
   label: string;
+  desc: string;
   icon: T_IconList;
 }
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+type T_AdminLayout = {
+  children: React.ReactNode;
+  initialServerTime: number;
+}
+
+const AdminLayout = ({ children, initialServerTime }: T_AdminLayout) => {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const pathname = usePathname();
   const router = useRouter();
-
+  
   const isActive = (to: string) => (to === "/" ? pathname === "/" : pathname.startsWith(to));
   
   const menu: T_Menu[] = [
-    { href: "/", label: "Dashboard", icon: "LuLayoutDashboard" },
-    { href: "/apps", label: "Apps & Services", icon: "LuBoxes" },
-    { href: "/resources", label: "Resources", icon: "LuActivity" },
-    { href: "/processes", label: "Processes", icon: "LuSlidersHorizontal" },
-    { href: "/alerts", label: "Alerts", icon: "LuBell" },
-    { href: "/settings", label: "Settings", icon: "LuSettings" },
+    { href: "/dashboard", label: "Dashboard", desc: "Everything this machine is reporting right now.", icon: "LuLayoutDashboard" },
+    { href: "/apps", label: "Apps & Services", desc: "Everything running inside your home server.", icon: "LuBoxes" },
+    { href: "/resources", label: "Resources", desc: "Hardware utilisation over the last few minutes.", icon: "LuActivity" },
+    { href: "/processes", label: "Processes", desc: "Heaviest tasks competing for this machine.", icon: "LuSlidersHorizontal" },
+    { href: "/alerts", label: "Alerts", desc: "Threshold breaches raised on this machine.", icon: "LuBell" },
+    { href: "/settings", label: "Settings", desc: "Thresholds and agent configuration.", icon: "LuSettings" },
   ];
 
   const logout = useMutation({
@@ -154,27 +161,23 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
               <SidebarTrigger className="shrink-0" />
               <div className="min-w-0">
                 <h1 className="truncate text-xl font-bold tracking-tight">{menu.find((item) => isActive(item.href))?.label}</h1>
-                {/* <p className="truncate text-sm text-muted-foreground">{subtitle}</p> */}
+                <p className="truncate text-sm text-muted-foreground">{menu.find((item) => isActive(item.href))?.desc}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest hidden sm:inline">
-                {/* {now
-                  ? now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
-                  : "--:--:--"} */}
+              {/* <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest hidden sm:inline">
                 {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-              </span>
+              </span> */}
+              <LiveClock initialServerTime={initialServerTime} />
               <span className="hidden items-center gap-2 rounded-full border border-border px-3 py-1 sm:flex">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                 <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">online</span>
               </span>
               <ThemeSwitcher />
               <Button
-                type="button"
+                className="lg:hidden"
                 onClick={handleLogout}
-                aria-label="Sign out"
                 disabled={logout.isPending}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive lg:hidden"
               >
                 <Icon icon={logout.isPending ? "LuLoaderCircle" : "LuLogOut"} />
               </Button>
