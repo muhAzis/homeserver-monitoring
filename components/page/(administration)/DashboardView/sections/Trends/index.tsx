@@ -5,7 +5,7 @@ import { useSystemStore } from "@/store/useSystemStore";
 import MetricChart from "@/components/core/MetricChart";
 
 type T_Trends = {
-  data: T_DashStatic;
+  data: T_DashStatic | undefined;
   isLoading: boolean;
 }
 
@@ -15,6 +15,18 @@ const Trends = ({ data, isLoading }: T_Trends) => {
   const cpuDataSet = history.map(h => h.live_resources.cpu);
   const memDataSet = history.map(h => h.live_resources.memory);
   const diskDataSet = history.map(h => h.live_resources.storage);
+  
+  if (isLoading) {
+    return (
+      <Container title="trends" description={`last 60 samples / ${60 * 3} seconds`}>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="skeleton h-66"/>
+          <div className="skeleton h-66"/>
+          <div className="skeleton h-66"/>
+        </div>
+      </Container>
+    )
+  }
   
   return (
     <Container title="trends" description={`last 60 samples / ${60 * 3} seconds`}>

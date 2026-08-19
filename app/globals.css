@@ -306,6 +306,10 @@
   .text-mono {
     @apply font-mono text-xs text-muted-foreground uppercase tracking-widest;
   }
+
+  .skeleton {
+    @apply h-4 w-full bg-card rounded-xl animate-pulse
+  }
 }
 
 @utility shadow-soft {
