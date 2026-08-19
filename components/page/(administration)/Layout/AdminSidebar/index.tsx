@@ -23,12 +23,13 @@ type T_AdminSidebar = {
   isActive: (to: string) => boolean;
   handleLogout: () => Promise<void>;
   isLoading: boolean;
+  hostname: string;
 }
 
-const AdminSidebar = ({ menu, isActive, handleLogout, isLoading }: T_AdminSidebar) => {
+const AdminSidebar = ({ menu, isActive, handleLogout, isLoading, hostname }: T_AdminSidebar) => {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  
+
   return (
     <Sidebar collapsible="icon" className="">
       <SidebarHeader className="border-b border-dark-200 dark:border-dark-500">
@@ -37,7 +38,7 @@ const AdminSidebar = ({ menu, isActive, handleLogout, isLoading }: T_AdminSideba
             <IconBlock icon="LuServer" variant="twilight" />
             {!collapsed ? (
               <div className="min-w-0 leading-loose">
-                <p className="truncate font-bold tracking-tight">KyouMe Server</p>
+                <p className="truncate font-bold tracking-tight">{hostname.replaceAll("-", " ").replaceAll(".", " - ")}</p>
                 <p className="font-mono text-xs text-muted-foreground tracking-widest truncate">HOMELAB • LOCAL</p>
               </div>
             ) : null}
