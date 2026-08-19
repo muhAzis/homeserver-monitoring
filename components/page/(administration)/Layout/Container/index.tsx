@@ -17,9 +17,10 @@ export type T_Menu = {
 
 type T_Container = {
   children: React.ReactNode;
+  hostname: string;
 }
 
-const Container = ({ children }: T_Container) => {
+const Container = ({ children, hostname }: T_Container) => {
   const pathname = usePathname();
   const router = useRouter();
   
@@ -62,6 +63,7 @@ const Container = ({ children }: T_Container) => {
         isActive={isActive}
         handleLogout={handleLogout}
         isLoading={logout.isPending}
+        hostname={hostname}
       />
       <AdminInset
         menu={menu}

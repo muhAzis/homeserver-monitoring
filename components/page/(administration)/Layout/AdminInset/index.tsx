@@ -29,7 +29,7 @@ const AdminInset = ({ children, menu, isActive, handleLogout, isLoading }: T_Adm
             {/* <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest hidden sm:inline">
               {new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
             </span> */}
-            <LiveClock />
+            <LiveClock type="clock" className="hidden sm:inline" />
             <span className="hidden items-center gap-2 rounded-full border border-border px-3 py-1 sm:flex">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">online</span>
@@ -46,7 +46,7 @@ const AdminInset = ({ children, menu, isActive, handleLogout, isLoading }: T_Adm
         </div>
       </header>
 
-      <main className="mx-auto w-full space-y-8 px-4 py-6 sm:px-8 sm:py-8">
+      <main className="mx-auto w-full space-y-8 px-4 py-6 sm:px-8 sm:py-8 overflow-auto scrollbar-none">
         {children}
       </main>
     </SidebarInset>
