@@ -24,7 +24,7 @@ type T_FooterData = {
 }
 
 type T_LiveResources = {
-  data: T_DashStatic;
+  data: T_DashStatic | undefined;
   isLoading: boolean;
 }
 
@@ -83,6 +83,20 @@ const LiveResources = ({ data, isLoading }: T_LiveResources) => {
     { title: "net out", icon: "LuZap", value: Number(netOutData?.value.toFixed(1)) ?? 0, unit: netOutData?.unit ?? "B/s" },
     { title: "cpu temp", icon: "LuCpu", value: tempData?.value ?? 0, unit: "°C" },
   ]
+
+  if (isLoading) {
+    return (
+      <Container title="Live resources" description="sampled every 3s">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="skeleton h-37"/>
+          <div className="skeleton h-37"/>
+          <div className="skeleton h-37"/>
+          <div className="skeleton h-37"/>
+        </div>
+        <div className="skeleton h-23"/>
+      </Container>
+    )
+  }
   
   return (
     <Container title="Live resources" description="sampled every 3s">

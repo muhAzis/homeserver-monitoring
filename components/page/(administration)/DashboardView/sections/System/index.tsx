@@ -15,7 +15,7 @@ type T_MachineData = {
 }
 
 type T_System = {
-  data: T_DashStatic;
+  data: T_DashStatic | undefined;
   isLoading: boolean;
 }
 
@@ -49,6 +49,18 @@ const System = ({ data, isLoading }: T_System) => {
       default:
         return "unknown";
     }
+  }
+
+  if (isLoading) {
+    return (
+      <Container title="System" description="identity · clock · power">
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+          <div className="skeleton h-74 col-span-1 md:col-span-3"/>
+          <div className="skeleton h-74 col-span-1 md:col-span-3"/>
+          <div className="skeleton h-74 col-span-1 md:col-span-4"/>
+        </div>
+      </Container>
+    )
   }
   
   return (
