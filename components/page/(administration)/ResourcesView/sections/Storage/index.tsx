@@ -1,9 +1,9 @@
+import { T_ResourceStatic } from "@/app/api/resources/static/route";
 import CardCore from "@/components/core/Card";
 import Container from "@/components/core/Container";
-import { T_DashStatic } from "@/app/api/dashboard/static/route";
 
 type T_Storage = {
-  data: T_DashStatic | undefined;
+  data: T_ResourceStatic | undefined;
   isLoading: boolean;
 }
 
@@ -40,4 +40,4 @@ const Storage = ({ data, isLoading }: T_Storage) => {
   );
 }
 
-export default Storage;
+export default Storage

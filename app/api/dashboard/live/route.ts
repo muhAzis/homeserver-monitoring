@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import si from "systeminformation";
+import os from "os";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,12 @@ export type T_DashLive = {
       value: number;
       max: number;
       unit: string;
+    },
+    load_avg: {
+      load1: number;
+      load5: number;
+      load15: number;
+      max: number;
     },
     memory: {
       value: number;
@@ -86,6 +93,9 @@ export async function GET(): Promise<NextResponse<T_DashLive | { error: string }
     const netData = Array.isArray(netStats) ? netStats[0] : netStats;
     const netInBytes = netData?.rx_sec || 0;
     const netOutBytes = netData?.tx_sec || 0;
+
+    const rawLoadAvg = os.loadavg();
+    const maxThreads = os.cpus().length;
     
     return NextResponse.json({
       battery: {
@@ -101,6 +111,12 @@ export async function GET(): Promise<NextResponse<T_DashLive | { error: string }
           value: load.currentLoad,
           max: 100,
           unit: "%"
+        },
+        load_avg: {
+          load1: Number(rawLoadAvg[0].toFixed(2)),
+          load5: Number(rawLoadAvg[1].toFixed(2)),
+          load15: Number(rawLoadAvg[2].toFixed(2)),
+          max: maxThreads
         },
         memory: {
           value: Number((mem.active / 1024 / 1024 / 1024).toFixed(2)),
