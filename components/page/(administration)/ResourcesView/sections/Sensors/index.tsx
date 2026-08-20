@@ -4,7 +4,7 @@ import Container from "@/components/core/Container";
 import { useResourceStore } from "@/store/useResourceStore";
 
 type T_Sensors = {
-  data: T_ResourceStatic | null;
+  data: T_ResourceStatic | undefined;
   isLoading: boolean;
 }
 

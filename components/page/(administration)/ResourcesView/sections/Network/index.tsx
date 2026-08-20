@@ -7,7 +7,7 @@ import { useResourceStore } from "@/store/useResourceStore";
 
 type T_Network = {
   isLoading: boolean;
-  data: T_ResourceStatic;
+  data: T_ResourceStatic | undefined;
 }
 
 const Network = ({ isLoading, data }: T_Network) => {
