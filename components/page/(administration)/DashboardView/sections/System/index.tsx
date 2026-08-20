@@ -110,7 +110,11 @@ const System = ({ data, isLoading }: T_System) => {
             <>
               <div className="flex-1">
                 <p className="text-mono">left</p>
-                <p className="text-foreground text-sm text-mono">{dayjs(liveData?.battery?.time_left).format("h[H] m[M]")}</p>
+                <p className="text-foreground text-sm text-mono">
+                  {liveData?.battery?.time_left
+                  ? dayjs(liveData?.battery?.time_left).format("h[H] m[M]")
+                  : <Icon icon="LuInfinity" size={24} />}
+                </p>
               </div>
 
               <div className="flex-1">
