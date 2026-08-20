@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import Container from "../../Container";
+import Container from "@/components/core/Container";
 import Icon from "@/components/core/Icon";
 import LiveClock from "@/components/core/LiveClock";
 import { T_DashStatic } from "@/app/api/dashboard/static/route";
@@ -23,6 +23,8 @@ const System = ({ data, isLoading }: T_System) => {
   const { liveData, history } = useSystemStore();
   const { machine, storage } = data || {};
 
+  const loadData = liveData?.live_resources?.load_avg;
+
   const machineData = [
     { label: "hostname", value: machine?.hostname },
     { label: "os", value: machine?.os_distro },
@@ -32,7 +34,7 @@ const System = ({ data, isLoading }: T_System) => {
     { label: "memory", value: machine?.memory },
     { label: "local ip", value: machine?.local_ip },
     { label: "public ip", value: machine?.public_ip },
-    { label: "load avg", value: machine?.avg_load },
+    { label: "load avg", value: `${loadData?.load1} ${loadData?.load5} ${loadData?.load15}` },
   ]
 
   const batStat = () => {

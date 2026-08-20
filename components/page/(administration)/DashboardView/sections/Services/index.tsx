@@ -1,6 +1,6 @@
 import { T_DashStatic } from "@/app/api/dashboard/static/route";
 import { useSystemStore } from "@/store/useSystemStore";
-import Container from "../../Container";
+import Container from "@/components/core/Container";
 import CardCore from "@/components/core/Card";
 import IconBlock from "@/components/core/IconBlock";
 import Icon from "@/components/core/Icon";

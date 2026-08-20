@@ -1,5 +1,5 @@
 import { T_DashStatic } from "@/app/api/dashboard/static/route";
-import Container from "../../Container"
+import Container from "@/components/core/Container";
 import { useSystemStore } from "@/store/useSystemStore";
 import CardCore from "@/components/core/Card";
 import Gauge, { T_Tone, textColors } from "@/components/core/Gauge";

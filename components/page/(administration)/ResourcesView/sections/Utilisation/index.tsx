@@ -1,20 +1,18 @@
-import { T_DashStatic } from "@/app/api/dashboard/static/route";
-import Container from "@/components/core/Container";
 import CardCore from "@/components/core/Card";
-import { useSystemStore } from "@/store/useSystemStore";
+import Container from "@/components/core/Container";
 import MetricChart from "@/components/core/MetricChart";
+import { useResourceStore } from "@/store/useResourceStore";
 
-type T_Trends = {
-  data: T_DashStatic | undefined;
+type T_Utilisation = {
   isLoading: boolean;
 }
 
-const Trends = ({ data, isLoading }: T_Trends) => {
-  const { liveData, history } = useSystemStore();
+const Utilisation = ({ isLoading }: T_Utilisation) => {
+  const { liveData, history } = useResourceStore();
   
-  const cpuDataSet = history.map(h => h.live_resources.cpu);
-  const memDataSet = history.map(h => h.live_resources.memory);
-  const diskDataSet = history.map(h => h.live_resources.storage);
+  const cpuDataSet = history.map(h => h.cpu);
+  const memDataSet = history.map(h => h.memory);
+  const diskDataSet = history.map(h => h.storage);
   
   if (isLoading) {
     return (
@@ -29,9 +27,9 @@ const Trends = ({ data, isLoading }: T_Trends) => {
   }
   
   return (
-    <Container title="trends" description={`last 60 samples / ${60 * 3} seconds`}>
+    <Container title="Utilisation history" description="last 60 samples">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <CardCore title="cpu" subtitle={<span className="text-twilight-500 text-sm">{liveData?.live_resources?.cpu.value.toFixed(1) + "%"}</span>}>
+        <CardCore title="cpu" subtitle={<span className="text-twilight-500 text-sm">{liveData?.cpu.value.toFixed(1) + "%"}</span>}>
           <MetricChart
             title="cpu"
             unit="%"
@@ -42,7 +40,7 @@ const Trends = ({ data, isLoading }: T_Trends) => {
           />
           <p className="text-mono">peak {Math.max(...cpuDataSet.map((data) => data.value)).toFixed(1)}%</p>
         </CardCore>
-        <CardCore title="memory" subtitle={<span className="text-blue-500 text-sm">{liveData?.live_resources?.memory.value.toFixed(1) + "GB"}</span>}>
+        <CardCore title="memory" subtitle={<span className="text-blue-500 text-sm">{liveData?.memory.value.toFixed(1) + "GB"}</span>}>
           <MetricChart
             title="memory"
             unit="GB"
@@ -53,7 +51,7 @@ const Trends = ({ data, isLoading }: T_Trends) => {
           />
           <p className="text-mono">peak {Math.max(...memDataSet.map((data) => data.value)).toFixed(1)}GB</p>
         </CardCore>
-        <CardCore title="disk" subtitle={<span className="text-teal-500 text-sm">{liveData?.live_resources?.storage.value.toFixed(1) + "%"}</span>}>
+        <CardCore title="disk" subtitle={<span className="text-teal-500 text-sm">{liveData?.storage.value.toFixed(1) + "%"}</span>}>
           <MetricChart
             title="disk"
             unit="GB"
@@ -69,4 +67,4 @@ const Trends = ({ data, isLoading }: T_Trends) => {
   );
 }
 
-export default Trends;
+export default Utilisation;
