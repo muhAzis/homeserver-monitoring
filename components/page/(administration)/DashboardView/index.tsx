@@ -8,6 +8,7 @@ import { T_DashStatic } from "@/app/api/dashboard/static/route";
 import LiveResources from "./sections/LiveResources";
 import Trends from "./sections/Trends";
 import Storage from "./sections/Storage";
+import Services from "./sections/Services";
 
 // export type T_DashStatic = {
 //   hostname: string;
@@ -41,7 +42,7 @@ export type T_DashLive = {
 }
 
 const DashboardView = () => {
-  const { isError, isLoading } = useSyncSystemData();
+  const { isError, isLoading, isLoadingServices } = useSyncSystemData();
   
   const dashboardStatic = useQuery<T_DashStatic>({
     queryKey: ["dashboard-static"],
@@ -55,10 +56,11 @@ const DashboardView = () => {
   
   return (
     <div className="flex flex-col gap-8">
-      <System data={dashboardStatic.data} isLoading={dashboardStatic.isPending}/>
-      <LiveResources data={dashboardStatic.data} isLoading={dashboardStatic.isPending}/>
-      <Trends data={dashboardStatic.data} isLoading={dashboardStatic.isPending}/>
-      <Storage data={dashboardStatic.data} isLoading={dashboardStatic.isPending}/>
+      <System data={dashboardStatic.data} isLoading={dashboardStatic.isPending || isLoading}/>
+      <LiveResources data={dashboardStatic.data} isLoading={dashboardStatic.isPending || isLoading}/>
+      <Trends data={dashboardStatic.data} isLoading={dashboardStatic.isPending || isLoading}/>
+      <Storage data={dashboardStatic.data} isLoading={dashboardStatic.isPending || isLoading}/>
+      <Services isLoading={isLoadingServices}/>
     </div>
   );
 }
