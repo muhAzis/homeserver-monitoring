@@ -3,6 +3,7 @@ import si from "systeminformation";
 import os from "os";
 import dayjs from "@/lib/dayjs";
 import packageInfo from "@/package.json";
+import bytesTemplate from "@/lib/bytes-render";
 
 export const dynamic = "force-dynamic";
 
@@ -104,9 +105,9 @@ export async function GET(): Promise<NextResponse<T_DashStatic>> {
       device: disk.fs,
       mount: disk.mount,
       type: disk.type,
-      size: (disk.size / 1024 / 1024 / 1024).toFixed(0) + "GB",
-      used: (disk.used / 1024 / 1024 / 1024).toFixed(0) + "GB",
-      available: (disk.available / 1024 / 1024 / 1024).toFixed(0) + "GB",
+      size: `${bytesTemplate(disk.size).value} ${bytesTemplate(disk.size).unit}`,
+      used: `${bytesTemplate(disk.used).value} ${bytesTemplate(disk.used).unit}`,
+      available: `${bytesTemplate(disk.available).value} ${bytesTemplate(disk.available).unit}`,
       percentage: disk.use.toFixed(0) + "%",
     }))
   });

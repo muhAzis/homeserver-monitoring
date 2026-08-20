@@ -35,7 +35,7 @@ const IconBlock = ({ icon, size = 20, variant = "default", isLight = false, clas
       stone: "bg-stone-500",
       zinc: "bg-zinc-500",
       neutral: "bg-neutral-500",
-      gray: "bg-gray-500",
+      gray: "bg-muted",
       slate: "bg-slate-500",
     }
   : {

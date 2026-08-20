@@ -31,7 +31,7 @@ const CardCore = ({
   footerClassName,
 }: T_CardCore) => {
   return (
-    <Card className={cn("hover:ring-twilight-500 transition-all duration-200!", className)}>
+    <Card className={cn("py-4! hover:ring-twilight-500 transition-all duration-200!", className)}>
       {title || titleIcon || subtitle
       ? <CardHeader className="flex gap-4 items-center">
           <div className={cn("flex gap-2 text-muted-foreground items-center", titleClassName)}>
