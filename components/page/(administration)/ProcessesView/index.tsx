@@ -85,7 +85,7 @@ const ProcessesView = () => {
                       <Icon icon="LuCpu"/>
                       cpu
                     </div>
-                    <p className="text-mono text-twilight-500">{ps.cpu}%</p>
+                    <p className="text-mono text-twilight-500">{ps.cpu.toFixed(2)}%</p>
                   </div>
                   <div className="w-full h-2 mt-2 bg-muted rounded-full overflow-hidden">
                     <div className="h-full bg-twilight-500 rounded-full" style={{ width: `${ps.cpu}%` }}/>
@@ -97,7 +97,7 @@ const ProcessesView = () => {
                       <Icon icon="LuMemoryStick"/>
                       memory
                     </div>
-                    <p className="text-mono text-almond-500">{ps.mem}%</p>
+                    <p className="text-mono text-almond-500">{ps.mem.toFixed(2)}%</p>
                   </div>
                   <div className="w-full h-2 mt-2 bg-muted rounded-full overflow-hidden">
                     <div className="h-full bg-almond-500 rounded-full" style={{ width: `${ps.mem}%` }}/>
