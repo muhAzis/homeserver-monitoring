@@ -17,7 +17,7 @@ const Icon = ({ icon, className, size, onClick, buttonVariant = 'secondary', dis
     primary: cn("text-primary hover:text-primary-500/50", disabled ? "text-primary-200! dark:text-primary-500/30" : ""),
     secondary: cn("text-dark-400 hover:text-dark-400/50", disabled ? "text-dark-200! dark:text-dark-500/30" : ""),
     ghost: cn("text-dark-100 hover:text-dark-100/50", disabled ? "text-dark-200! dark:text-dark-500/30" : ""),
-    destructive: cn("text-primary-500 hover:text-primary-500/50", disabled ? "text-primary-200! dark:text-primary-500/30" : ""),
+    destructive: cn("text-red-500 hover:text-red-500/50", disabled ? "text-red-200! dark:text-red-500/30" : ""),
     outline: cn("text-dark-100 hover:text-dark-100/50", disabled ? "text-dark-200! dark:text-dark-500/30" : ""),
     blue: cn("text-blue-500 hover:text-blue-500/50", disabled ? "text-blue-200! dark:text-blue-500/30" : ""),
     emerald: cn("text-emerald-500 hover:text-emerald-500/50", disabled ? "text-emerald-200! dark:text-emerald-500/30" : ""),
