@@ -40,7 +40,7 @@ export async function GET(): Promise<NextResponse<T_ProcessesLive | { error: str
     
     return NextResponse.json({
       summary: {
-        tracked_count: topProcesses.length,
+        tracked_count: processes.all,
         // cpu_total: topProcesses.reduce((acc, curr) => acc + curr.cpu, 0),
         // mem_total: topProcesses.reduce((acc, curr) => acc + curr.mem, 0),
         cpu_total: currentLoad.currentLoad,
